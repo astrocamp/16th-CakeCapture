@@ -7,7 +7,7 @@ urlpatterns = [
     path("accounts/", include("allauth.urls")),
     path("item_detail", views.detail, name="detail"),
     path("about/",views.about,name="about"),
-    path("cart/detail", views.cart_list, name="cart_list"),
+    path("cart/list", views.cart_list, name="cart_list"),
     path("cart/confirm", views.cart_confirm, name="cart_confirm"),
 ]
 
