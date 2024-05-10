@@ -10,9 +10,6 @@ def detail(request):
 def about(request):
     return render(request, "pages/about.html")
 
-def cart_detail(request):
-    return render(request, "cart/cart_detail.html")
-
 def cart_list(request):
     return render(request, "pages/cart_list.html")
 
