@@ -1,11 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Product, Category, ProductReview
-from django.core.paginator import Paginator
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib import messages
 from django.http import JsonResponse
 from .forms import ProductReviewForm
 from django.db.models import Avg, Case, When, Value
-from django.db.models.functions import Coalesce
 
 
 def all(request):
@@ -274,12 +273,12 @@ def edit_review(request, review_id):
 def load_more_reviews(request, product_id):
     page = request.GET.get("page", 1)
     reviews = ProductReview.objects.filter(product_id=product_id).order_by("-date")
-    reviews = Paginator(reviews, 10)
+    paginator = Paginator(reviews, 10)
 
     try:
-        reviews = reviews.page(page)
+        reviews = paginator.page(page)
     except PageNotAnInteger:
-        reviews = reviews.page(1)
+        reviews = paginator.page(1)
     except EmptyPage:
         return JsonResponse({"reviews": [], "has_next": False})
 
