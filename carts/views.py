@@ -20,7 +20,7 @@ def summary(request):
     totals = cart.cart_total()
     return render(
         request,
-        "cart/cart_list.html",
+        "carts/list.html",
         {"cart_products": cart_products, "quantities": quantities, "totals": totals},
     )
 
