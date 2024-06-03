@@ -34,7 +34,7 @@ INSTALLED_APPS = [
     "chats",
     "orders",
     "carts",
-    "messagememos",
+    "feedbacks",
     "storages",
     "django_seed",
     "managements",

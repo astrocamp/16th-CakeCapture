@@ -8,7 +8,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from django.http import JsonResponse
 from products.models import Favorite
-from messagememos.models import MessageModel
+from feedbacks.models import MessageModel
 from carts.cart import *
 from .models import Profile
 from .forms import *
@@ -27,6 +27,7 @@ def register(request):
             messages.error(request, "註冊失敗, 請確認輸入的訊息!")
     context = {"form": form}
     return render(request, "accounts/register.html", context)
+
 
 class NewLoginView(LoginView):
     form_class = LoginForm
@@ -64,7 +65,9 @@ def profile(request):
     favorites = Favorite.objects.filter(user=request.user)
     if request.method == "POST":
         user_form = UpdateUserForm(request.POST, instance=request.user)
-        profile_form = UpdateProfileForm(request.POST, request.FILES, instance=request.user.profile)
+        profile_form = UpdateProfileForm(
+            request.POST, request.FILES, instance=request.user.profile
+        )
 
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
@@ -77,7 +80,11 @@ def profile(request):
         user_form = UpdateUserForm(instance=request.user)
         profile_form = UpdateProfileForm(instance=request.user.profile)
 
-    return render(request,"accounts/user.html",{"user_form": user_form, "profile_form": profile_form, "favorites": favorites},)
+    return render(
+        request,
+        "accounts/user.html",
+        {"user_form": user_form, "profile_form": profile_form, "favorites": favorites},
+    )
 
 
 # 忘記密碼
@@ -102,7 +109,7 @@ def user(request):
 
 
 def favorite_delete(request):
-    
+
     if request.method == "POST":
         product_id = request.POST.get("product_id")
         favorite = get_object_or_404(
