@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "storages",
     "django_seed",
     "managements",
+    "bonuses",
 ]
 
 SITE_ID = 5
