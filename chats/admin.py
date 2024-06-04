@@ -3,3 +3,4 @@ from .models import *
 
 admin.site.register(ChatGroup)
 admin.site.register(GroupMessage)
+admin.site.register(ChatGroupMember)
