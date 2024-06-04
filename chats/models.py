@@ -22,3 +22,13 @@ class GroupMessage(models.Model):
 
     class Meta:
         ordering = ["-created"]
+
+
+class ChatGroupMember(models.Model):
+    group = models.ForeignKey(
+        ChatGroup, related_name="members", on_delete=models.CASCADE
+    )
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.user.username} in {self.group.group_name}"
