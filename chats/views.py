@@ -11,8 +11,11 @@ from linebot.models import MessageEvent, TextSendMessage
 
 
 # @login_required
-def chat_view(request):
-    chat_group = get_object_or_404(ChatGroup, group_name="public-chat")
+def chat_view(request, group_name=None):
+    if group_name is None:
+        group_name = f"{request.user.username}-service"
+
+    chat_group = get_object_or_404(ChatGroup, group_name=group_name)
     chat_messages = chat_group.chat_messages.all()[:30]
     form = ChatmessageCreateForm()
 
